@@ -8,11 +8,11 @@ import com.example.notesapp.databinding.ActivityMainBinding
 
 class NotesActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAddNoteBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddNoteBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }
