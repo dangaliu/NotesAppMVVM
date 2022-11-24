@@ -15,7 +15,7 @@ interface NoteDao {
     suspend fun insertNote(note: Note)
 
     @Query("select * from notes order by id")
-    fun getAllNotes(): LiveData<List<Note>>
+    fun getAllNotes(): LiveData<MutableList<Note>>
 
     @Delete
     suspend fun deleteNote(note: Note)

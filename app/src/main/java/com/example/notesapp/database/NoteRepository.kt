@@ -9,7 +9,7 @@ class NoteRepository(private val noteDao: NoteDao) {
         noteDao.insertNote(note)
     }
 
-    fun getAllNotes(): LiveData<List<Note>> {
+    fun getAllNotes(): LiveData<MutableList<Note>> {
         return noteDao.getAllNotes()
     }
 

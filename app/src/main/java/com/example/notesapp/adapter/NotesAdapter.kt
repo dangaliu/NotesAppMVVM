@@ -1,5 +1,6 @@
 package com.example.notesapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,12 +40,15 @@ class NotesAdapter(private val context: Context, val listener: OnNoteItemClickLi
         }
     }
 
-    fun updateNotes(newNotes: ArrayList<Note>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateNotes(newNotes: List<Note>) {
         allNotes.clear()
         allNotes.addAll(newNotes)
 
         notes.clear()
         notes.addAll(allNotes)
+
+        notifyDataSetChanged()
     }
 
     fun filterList(search: String) {
