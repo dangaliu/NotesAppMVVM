@@ -36,17 +36,38 @@ class AddNoteActivity : AppCompatActivity() {
         notesRepository = NoteRepository(NoteDatabase.getNoteDatabase(this).getNoteDao())
         factory = NotesFactory(notesRepository)
         viewModel = NotesViewModel(notesRepository)
+        if (intent.getParcelableExtra("updateNote") as Note? != null) {
+            val note = intent.getParcelableExtra<Note>("updateNote")!!
+            binding.etTitle.setText(note.title)
+            binding.etNote.setText(note.note)
+        }
     }
 
     private fun setListeners() {
         binding.ibApply.setOnClickListener {
-            val newNote = Note(
-                null,
-                title = binding.etTitle.text.toString(),
-                note = binding.etNote.text.toString(),
-                viewModel.getDate()
-            )
-            setResult(RESULT_OK, Intent().apply { putExtra("newNote", newNote) })
+            if (intent.getParcelableExtra("updateNote") as Note? != null) {
+                val note = intent.getParcelableExtra<Note>("updateNote")!!
+                val updatedNote = Note(
+                    note.id,
+                    binding.etTitle.text.toString(),
+                    binding.etNote.text.toString(),
+                    note.date
+                )
+                setResult(RESULT_OK, Intent().apply { putExtra("updateNote", updatedNote) })
+                finish()
+            } else {
+                val newNote = Note(
+                    null,
+                    title = binding.etTitle.text.toString(),
+                    note = binding.etNote.text.toString(),
+                    viewModel.getDate()
+                )
+                setResult(RESULT_OK, Intent().apply { putExtra("newNote", newNote) })
+                finish()
+            }
+        }
+
+        binding.ivBack.setOnClickListener {
             finish()
         }
     }

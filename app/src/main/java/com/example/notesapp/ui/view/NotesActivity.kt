@@ -41,8 +41,8 @@ class NotesActivity : AppCompatActivity() {
     private var updateNoteLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                if (result.data?.getParcelableExtra("updatedNote") as Note? is Note) {
-                    viewModel.updateNote(result.data?.getParcelableExtra("updatedNote")!!)
+                if (result.data?.getParcelableExtra("updateNote") as Note? is Note) {
+                    viewModel.updateNote(result.data?.getParcelableExtra("updateNote")!!)
                 }
             }
         }
