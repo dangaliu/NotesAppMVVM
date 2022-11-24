@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.notesapp.R
 import com.example.notesapp.adapter.NotesAdapter
 import com.example.notesapp.adapter.OnNoteItemClickListener
 import com.example.notesapp.database.NoteDatabase
@@ -67,7 +70,15 @@ class NotesActivity : AppCompatActivity() {
             }
 
             override fun onLongItemClick(note: Note, view: CardView) {
-
+                val popupMenu = PopupMenu(this@NotesActivity, view)
+                popupMenu.inflate(R.menu.note_popup)
+                popupMenu.setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.deleteNote -> viewModel.deleteNote(note)
+                    }
+                    true
+                }
+                popupMenu.show()
             }
         })
 
@@ -80,7 +91,7 @@ class NotesActivity : AppCompatActivity() {
         }
 
         binding.rvNotes.apply {
-            layoutManager = LinearLayoutManager(this@NotesActivity)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = notesAdapter
         }
     }

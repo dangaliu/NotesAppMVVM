@@ -1,8 +1,10 @@
 package com.example.notesapp.ui.view
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import com.example.notesapp.adapter.NotesAdapter
 import com.example.notesapp.adapter.OnNoteItemClickListener
@@ -42,7 +44,7 @@ class AddNoteActivity : AppCompatActivity() {
                 null,
                 title = binding.etTitle.text.toString(),
                 note = binding.etNote.text.toString(),
-                null
+                viewModel.getDate()
             )
             setResult(RESULT_OK, Intent().apply { putExtra("newNote", newNote) })
             finish()

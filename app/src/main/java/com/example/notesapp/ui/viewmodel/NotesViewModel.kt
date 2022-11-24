@@ -1,13 +1,19 @@
 package com.example.notesapp.ui.viewmodel
 
-import android.util.Log
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notesapp.database.NoteRepository
 import com.example.notesapp.models.Note
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Calendar
 
 class NotesViewModel(private val repository: NoteRepository) : ViewModel() {
 
@@ -23,5 +29,10 @@ class NotesViewModel(private val repository: NoteRepository) : ViewModel() {
 
     fun deleteNote(note: Note) = viewModelScope.launch {
         repository.delete(note)
+    }
+
+
+    fun getDate(): String {
+        return LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
     }
 }
